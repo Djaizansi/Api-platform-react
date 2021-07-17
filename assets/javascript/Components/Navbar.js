@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Link, NavLink} from 'react-router-dom';
-import useCurrentUser from "../Hooks/useCurrentUser";
+import {CredentialsContext} from "../Contexts/CredentialsContext";
 
 export default function Navbar() {
-    const currentUser = useCurrentUser();
-
+    const {token, logout} = useContext(CredentialsContext);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link className={"navbar-brand"} to={"/"}> React </Link>
@@ -22,32 +21,26 @@ export default function Navbar() {
                     </li>
 
                     <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/projets">
-                            Projets
-                        </NavLink>
-                    </li>
-
-                    <li className="nav-item">
                         <NavLink exact className="nav-link" activeClassName="active" to="/contact">
                             Contact
                         </NavLink>
                     </li>
 
-                    {!currentUser ? (
+                    {token === null && (
                         <li className="nav-item">
                             <NavLink exact className="nav-link" activeClassName="active" to="/connexion">
                                 Connexion
                             </NavLink>
                         </li>
-                    ) : ''}
+                    )}
 
-                    {currentUser ? (
+                    {token && (
                         <li className="nav-item">
-                            <NavLink exact className="nav-link" to="/deconnexion">
+                            <button onClick={logout} className="nav-link border-0 bg-transparent">
                                 Déconnexion
-                            </NavLink>
+                            </button>
                         </li>
-                    ) : ''}
+                    )}
                 </ul>
             </div>
         </nav>
