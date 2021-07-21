@@ -1,25 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import {CredentialsContext} from "../../Contexts/CredentialsContext";
 
-import {deleteArticle, findAll} from "../../Actions/ArticleAction";
-import Card from "../../Components/Card";
+import {findAll} from "../../Actions/ArticleAction";
+import List from "../../Components/List";
 import {Redirect} from "react-router-dom";
-import {toast} from "react-toastify";
+import Back from "../../Components/Back";
 
 export default function Articles(){
     const [data, setData] = useState();
     const {token, profil} = useContext(CredentialsContext);
-
-    const deleteArticles = (id,token) => {
-        deleteArticle(id,token).then(res => {
-            if(res === 204){
-                toast.success(`✅ Article supprimé !`);
-                setData(data.filter((it) => it.id !== id));
-            }else{
-                toast.error('⚠️ Une erreur est survenue');
-            }
-        });
-    }
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         token && (
@@ -33,6 +23,7 @@ export default function Articles(){
                     obj.published = item.isPublished;
                     return obj;
                 }));
+                setLoading(false);
             })
         )
     }, []);
@@ -40,31 +31,13 @@ export default function Articles(){
     return (
         <>
             {token ? (
-                data && (
-                    <div className="mt-4 mx-3">
-                        <h1 className="text-center">Articles</h1>
-                        <div className="d-flex flex-wrap justify-content-center">
-                            {
-                                data.length > 0 ? (
-                                    data.map(item => {
-                                        return !item.isPublished && (
-                                            <Card
-                                                key={item.id}
-                                                title={item.title}
-                                                content={item.content}
-                                                author={item.authorId}
-                                                user={profil.id}
-                                                token={token}
-                                                id={item.id}
-                                                onDelete={deleteArticles}
-                                            />
-                                        )
-                                    })
-                                ) : <p>Aucun article n'est disponible</p>
-                            }
-                        </div>
+                <div className="mt-4 mx-3">
+                    <h1 className="text-center">Articles</h1>
+                    <Back url="/" title="Retour à l'accueil"/>
+                    <div className="d-flex flex-wrap justify-content-center">
+                        <List data={data} loading={loading} user={profil} token={token}/>
                     </div>
-                )
+                </div>
             ) : <Redirect to='/' />}
         </>
     );

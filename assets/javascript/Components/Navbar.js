@@ -20,12 +20,6 @@ export default function Navbar() {
                         </NavLink>
                     </li>
 
-                    <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/contact">
-                            Contact
-                        </NavLink>
-                    </li>
-
                     {token === null && (
                         <li className="nav-item">
                             <NavLink exact className="nav-link" activeClassName="active" to="/connexion">
@@ -35,11 +29,25 @@ export default function Navbar() {
                     )}
 
                     {token && (
-                        <li className="nav-item">
-                            <button onClick={logout} className="nav-link border-0 bg-transparent">
-                                Déconnexion
-                            </button>
-                        </li>
+                        <>
+                            <li className="nav-item dropdown">
+                                <a className="dropdown-toggle nav-link d-flex align-items-center" type="button"
+                                   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Articles
+                                </a>
+                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <NavLink exact className="dropdown-item" activeClassName="active" to="/articles">Tous les articles</NavLink>
+                                    <NavLink exact className="dropdown-item" activeClassName="active" to="/mes-articles">Mes articles</NavLink>
+                                    <NavLink exact className="dropdown-item" activeClassName="active" to="/creer-un-article">Créer un article</NavLink>
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <button onClick={logout} className="nav-link border-0 bg-transparent">
+                                    Déconnexion
+                                </button>
+                            </li>
+                        </>
                     )}
                 </ul>
             </div>

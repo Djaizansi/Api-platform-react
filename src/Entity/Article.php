@@ -13,6 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"article:read"}},
  *     denormalizationContext={"groups"={"article:write"}},
+ *     paginationItemsPerPage=2000,
  *     collectionOperations={
  *         "get",
  *         "post"={"security"="is_granted('ROLE_USER')"}
@@ -60,14 +61,14 @@ class Article
     /**
      * @ORM\Column(type="boolean")
      *
-     * @Groups("article:read")
+     *  @Groups({"article:read", "article:write", "user:read"})
      */
     private $isPublished;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
-     * @Groups("article:read")
+     * @Groups({"article:read"})
      */
     private $publishedAt;
 

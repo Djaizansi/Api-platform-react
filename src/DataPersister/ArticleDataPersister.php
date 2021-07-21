@@ -62,13 +62,16 @@ class ArticleDataPersister implements ContextAwareDataPersisterInterface
      */
     public function persist($data, array $context = [])
     {
+        $data->setSlug(
+            $this
+                ->_slugger
+                ->slug(strtolower($data->getTitle())). '-' .uniqid()
+        );
         // Update the slug only if the article isn't published
         if (!$data->getIsPublished()) {
-            $data->setSlug(
-                $this
-                    ->_slugger
-                    ->slug(strtolower($data->getTitle())). '-' .uniqid()
-            );
+            $data->setPublishedAt(null);
+        }elseif($data->getIsPublished()){
+            $data->setPublishedAt(new \DateTime());
         }
 
         // Set the author if it's a new article
