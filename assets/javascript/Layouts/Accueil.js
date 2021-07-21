@@ -5,10 +5,11 @@ import {CredentialsContext} from "../Contexts/CredentialsContext";
 export default function Accueil() {
     const {token, profil} = useContext(CredentialsContext);
     const string = token && profil !== undefined && profil !== null ? `Bonjour ${profil.username}` : 'Bienvenu';
+    const id = profil !== undefined && profil !== null ? profil.id : '';
     const crud = [
-        {name: "Créer un article",description:"Ajouter un article afin de montrer ses envies, l'actualités...",url:""},
-        {name: "Gérer mes articles",description:"Afficher modifier, supprimer et publier ou non ses articles",url:""},
-        {name: "Afficher tous les articles",description:"Vous avez la possibilité d'afficher tous les articles",url:""},
+        {name: "Créer un article",description:"Ajouter un article afin de montrer ses envies, l'actualités...",url:"/creer-un-article"},
+        {name: "Gérer mes articles",description:"Afficher modifier, supprimer et publier ou non ses articles",url:"/mes-articles"},
+        {name: "Afficher tous les articles",description:"Vous avez la possibilité d'afficher tous les articles",url:"/articles"},
     ]
     return (
         <div className="container mt-4">
@@ -26,30 +27,20 @@ export default function Accueil() {
             {token && (
                 <div className="row justify-content-around m-lg-0 mx-4">
                     {
-                        crud.map(item =>
-                            <>
-                                <div className="col-lg-3 col-12 shadow p-3 mb-5 bg-white rounded" style={{width: "18rem"}}>
-                                    <div className="card-body h-100 d-flex flex-column justify-content-between">
-                                        <h5 className="text-center card-title">{item.name}</h5>
-                                        <p className="text-center card-text">{item.description}</p>
-                                        <a href="#" className="btn btn-primary">Voir</a>
-                                    </div>
+                        crud.map((item,key) =>
+                            <div key={key} className="col-lg-3 col-12 shadow p-3 mb-5 bg-white rounded" style={{width: "18rem"}}>
+                                <div className="card-body h-100 d-flex flex-column justify-content-between">
+                                    <h5 className="text-center card-title">{item.name}</h5>
+                                    <p className="text-center card-text">{item.description}</p>
+                                    <Link to={item.url} className="btn btn-primary">
+                                        Voir
+                                    </Link>
                                 </div>
-                            </>
+                            </div>
                         )
                     }
                 </div>
             )}
-
-
-            <Link to={{
-                pathname:"/contact",
-                state: {
-                    txt: "Voilà des données !"
-                }
-            }}>
-                Aller à la section Contact
-            </Link>
         </div>
     )
 }

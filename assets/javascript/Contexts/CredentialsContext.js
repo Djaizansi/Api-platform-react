@@ -1,5 +1,5 @@
 import React, {createContext, useState, useEffect} from 'react';
-import {login as flogin} from './actions/security';
+import {login as flogin} from './Actions/security';
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
 
@@ -10,12 +10,9 @@ export default function CredentialsProvider({children}) {
     const [profil, setProfil] = useState();
 
     useEffect(() => {
-        setTimeout(() => {
-            const token = localStorage.getItem('jwt_token');
-            setToken(token);
-            setProfil(token && jwtDecode(token));
-        },2000,
-        );
+        const token = localStorage.getItem('jwt_token');
+        setToken(token);
+        setProfil(token && jwtDecode(token));
     }, []);
 
     const login = function (username, password) {

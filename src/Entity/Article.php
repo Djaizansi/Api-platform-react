@@ -53,16 +53,9 @@ class Article
     /**
      * @ORM\Column(type="text", nullable=true)
      *
-     * @Groups({"article:read", "article:write"})
+     * @Groups({"article:read", "article:write", "user:read"})
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Groups({"article:read", "article:write"})
-     */
-    private $picture;
 
     /**
      * @ORM\Column(type="boolean")
@@ -160,18 +153,6 @@ class Article
     public function setContent(?string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }
