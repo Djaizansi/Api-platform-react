@@ -4,7 +4,7 @@ import {CredentialsContext} from "../Contexts/CredentialsContext";
 
 export default function Accueil() {
     const {token, profil} = useContext(CredentialsContext);
-    const string = token && profil !== undefined && profil !== null ? `Bonjour ${profil.username} (${profil.roles.includes("ROLE_ADMIN") ? "Admin" : "Utilisateur"})` : 'Bienvenu';
+    const string = token && profil !== undefined && profil !== null ? `Bonjour ${profil.username} (${profil.roles.includes("ROLE_ADMIN") ? "Admin" : "Utilisateur"})` : 'Bienvenue';
     const crud = [
         {name: "Créer un article",description:"Ajouter un article afin de montrer ses envies, l'actualités...",url:"/creer-un-article"},
         {name: "Gérer mes articles",description:"Afficher modifier, supprimer et publier ou non ses articles",url:"/mes-articles"},
