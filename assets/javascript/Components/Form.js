@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { TagsInput } from "react-tag-input-component";
 import {toast} from "react-toastify";
+import {entierAleatoire} from "../Helpers";
 
 export default function Form({ onSubmit, defaultValues }) {
     const [loading, setLoading] = useState(true);
+    const [loadingPost, setLoadingPost] = useState(false);
     const [values, setValues] = useState({
         title: "",
         content: "",
@@ -28,11 +30,16 @@ export default function Form({ onSubmit, defaultValues }) {
     };
 
     const handleSubmit = () => {
-        if(values.title !== '' && values.content !== '' && values.tags.length > 0){
-            onSubmit(values);
-        }else{
-            toast.error('⚠️ Un champ n\'est pas rempli !');
-        }
+        setLoadingPost(true);
+        const aleatoire = entierAleatoire(1000,6000);
+        console.log(aleatoire);
+        setTimeout(() => {
+            if(values.title !== '' && values.content !== '' && values.tags.length > 0){
+                onSubmit(values);
+            }else{
+                toast.error('⚠️ Un champ n\'est pas rempli !');
+            }
+        },aleatoire);
     };
 
     return (
@@ -73,7 +80,8 @@ export default function Form({ onSubmit, defaultValues }) {
                         <input type="checkbox" className="custom-control-input" id="customSwitch1" name="isPublished" onChange={handleChange} defaultChecked={values.isPublished}/>
                         <label className="custom-control-label" htmlFor="customSwitch1">Voulez-vous publiez votre article ?</label>
                     </div>
-                    <button className="btn btn-info w-100" onClick={handleSubmit}>Valider</button>
+                    <button className="btn btn-info w-100" onClick={handleSubmit}>{!loadingPost ? "Valider" :
+                        <i className="fas fa-circle-notch fa-spin"></i>}</button>
                 </div>
     );
 }

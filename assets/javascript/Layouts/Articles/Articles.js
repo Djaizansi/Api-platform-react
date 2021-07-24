@@ -14,7 +14,7 @@ export default function Articles(){
     useEffect(() => {
         token && (
             findAll(token).then(data => {
-                setData(data["hydra:member"].map(item => {
+                setData(data["hydra:member"].sort(() => Math.random() - 0.5).map(item => {
                     const obj = {};
                     obj.id = item.id;
                     obj.title = item.title;
