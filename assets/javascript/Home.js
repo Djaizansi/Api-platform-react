@@ -13,6 +13,7 @@ import ArticlesUser from "./Layouts/Articles/ArticlesUser";
 import Articles from "./Layouts/Articles/Articles";
 import ArticlesNew from "./Layouts/Articles/ArticlesNew";
 import ArticlesShow from "./Layouts/Articles/ArticlesShow";
+import ArticlesAll from "./Layouts/Articles/ArticlesAll";
 
 function Home(){
     return (
@@ -26,6 +27,7 @@ function Home(){
                         <Route path="/creer-un-article" exact component={ArticlesNew} />
                         <Route path="/articles/edit/:id" exact component={ArticlesNew} />
                         <Route path="/mes-articles" exact component={ArticlesUser} />
+                        <Route path="/articles/all" exact component={ArticlesAll} />
                         <Route path="/articles" exact component={Articles} />
                         <Route path="/articles/:id" exact component={ArticlesShow} />
                         <Route path="/" component={() => <div>Erreur 404</div>} />

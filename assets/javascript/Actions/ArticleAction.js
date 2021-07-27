@@ -22,6 +22,17 @@ export function findAll(token) {
         .then(data => data);
 }
 
+export function findAllWithoutConnection() {
+    return fetch(`http://127.0.0.1:8000/api/articles`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+        }
+    })
+        .then(res => res.json())
+        .then(data => data);
+}
+
 export function deleteArticle(id,token) {
     return fetch(`http://127.0.0.1:8000/api/articles/${id}`, {
         method: 'DELETE',

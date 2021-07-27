@@ -21,11 +21,18 @@ export default function Navbar() {
                     </li>
 
                     {token === null && (
-                        <li className="nav-item">
-                            <NavLink exact className="nav-link" activeClassName="active" to="/connexion">
-                                Connexion
-                            </NavLink>
-                        </li>
+                        <>
+                            <li className="nav-item">
+                                <NavLink exact className="nav-link" activeClassName="active" to="/articles/all">
+                                   Articles
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink exact className="nav-link" activeClassName="active" to="/connexion">
+                                    Connexion
+                                </NavLink>
+                            </li>
+                        </>
                     )}
 
                     {token && (
