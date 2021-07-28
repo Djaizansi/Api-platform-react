@@ -1,39 +1,58 @@
-# .github/workflows/pipeline.yml
+# This is a basic workflow to help you get started with Actions
 
-k6_load_test:
-  name: k6 Load Test
-  runs-on: ubuntu-latest
+name: K6 tests
 
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
-    - name: Run local k6 test
-      uses: k6io/action@v0.1
-      with:
-        filename: test.js
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
-    - name: Run local k6 load
-      uses: k6io/action@v0.1
-      with:
-        filename: load.js
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    name: k6 Load Test
+    runs-on: ubuntu-latest
 
-    - name: Run local k6 smoke
-      uses: k6io/action@v0.1
-      with:
-        filename: smoke.js
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Run local k6 soak
-      uses: k6io/action@v0.1
-      with:
-        filename: soak.js
+      - name: Run local k6 test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/test.js
 
-    - name: Run local k6 spike
-      uses: k6io/action@v0.1
-      with:
-        filename: spike.js
+      - name: Run local k6 load
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/load.js
 
-    - name: Run local k6 stress
-      uses: k6io/action@v0.1
-      with:
-        filename: stress.js
+      - name: Run local k6 smoke
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/smoke.js
+
+      - name: Run local k6 soak
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/soak.js
+
+      - name: Run local k6 spike
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/spike.js
+
+      - name: Run local k6 stress
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/stress.js
