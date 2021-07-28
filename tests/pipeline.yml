@@ -1,0 +1,39 @@
+# .github/workflows/pipeline.yml
+
+k6_load_test:
+  name: k6 Load Test
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Run local k6 test
+      uses: k6io/action@v0.1
+      with:
+        filename: test.js
+
+    - name: Run local k6 load
+      uses: k6io/action@v0.1
+      with:
+        filename: load.js
+
+    - name: Run local k6 smoke
+      uses: k6io/action@v0.1
+      with:
+        filename: smoke.js
+
+    - name: Run local k6 soak
+      uses: k6io/action@v0.1
+      with:
+        filename: soak.js
+
+    - name: Run local k6 spike
+      uses: k6io/action@v0.1
+      with:
+        filename: spike.js
+
+    - name: Run local k6 stress
+      uses: k6io/action@v0.1
+      with:
+        filename: stress.js
