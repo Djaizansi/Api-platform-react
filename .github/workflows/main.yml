@@ -33,26 +33,26 @@ jobs:
           filename: tests/test.js
 
       - name: Run local k6 load
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.2.0
         with:
-          filename: load.js
+          filename: tests/load.js
         
       - name: Run local k6 smoke
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.2.0
         with:
-          filename: smoke.js
+          filename: tests/smoke.js
           
       - name: Run local k6 soak
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.2.0
         with:
-          filename: soak.js
+          filename: tests/soak.js
           
       - name: Run local k6 spike
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.2.0
         with:
-          filename: spike.js
+          filename: tests/spike.js
       
       - name: Run local k6 stress
-        uses: k6io/action@v0.1
+        uses: grafana/k6-action@v0.2.0
         with:
-          filename: stress.js
+          filename: tests/stress.js
